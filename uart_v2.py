@@ -302,7 +302,7 @@ while True:
 
 
     #* ======= Classification ==========
-    mode = 1
+    mode = 3
 
     con = "pending"
     con1 = "Distance 10cm; Height 10cm;"
@@ -315,16 +315,12 @@ while True:
         if (stm_rises + stm_falls > 4):
             mat = "COIN detected!"
 
-            if ( (old_energy > 3_000_000) or pp > 3100.0):
+            if ( (old_energy > 3_000_000) or pp > 3150.0):
                 con = con2
 
-            elif (1_400_000 < old_energy < 3_000_000):
+            elif (1_600_000 < old_energy < 3_000_000):
 
-                if (peak_freq > 2000):
-                    con = con1
-
-                elif (peak_freq < 2000):
-                    con = con4
+                con = con1
 
             else:
                 con = con3
@@ -333,16 +329,16 @@ while True:
         else:
             mat = "Eraser detected!"
 
-            if (old_energy > 400_000):
+            if (old_energy > 1_250_000):
 
                 con = con2
             
-            elif (190_000 < old_energy < 400_000):
+            elif (400_000 < old_energy < 1_250_000):
 
-                if (peak_freq > 350):
+                if (200 > peak_freq or peak_freq > 270):
                     con = con4
                 else:
-                    con = con1  
+                    con = con1
             
             else :
                 con = con3
@@ -356,4 +352,28 @@ while True:
             print("Eraser Detected.")
         else:
             print("No eraser detected.")
+
+    else:
+        mat = "Soft Material Detected!"
+        if (old_energy >= 300_000):
+            if (peak_freq > 301 or peak_freq < 201):
+                con = con4
+            else:
+                con = con2
+
+        # elif (100_000 <= old_energy < 300_000):
+
+            # if ( (peak_freq > 500 or peak_freq < 100) or pp > 350):
+
+        else:
+            
+            if (pp > 400):
+                con = con1
+
+            else:
+                con = con3
+
+        print(mat)
+        print(con)
+            
 
